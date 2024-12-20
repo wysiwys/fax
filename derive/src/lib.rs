@@ -188,6 +188,8 @@ struct Bits {
     data: u16,
     len: u8
 }
+
+#[allow(dead_code)]
 impl Bits {
     fn new(data: u16, len: u8) -> Bits {
         Bits { data, len }
@@ -297,6 +299,8 @@ enum Node<T> {
     LeafLut(LeafLut<T>),
     PrefixLut(PrefixLut<T>)
 }
+
+#[allow(dead_code)]
 impl<T: Copy + Default + Debug> Node<T> {
     fn size(&self) -> usize {
         match self {

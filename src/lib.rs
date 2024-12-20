@@ -1,6 +1,4 @@
 use std::convert::Infallible;
-use std::io::{self, Read};
-use std::iter::Map;
 use std::ops::Not;
 use std::fmt;
 

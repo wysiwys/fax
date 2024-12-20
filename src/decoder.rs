@@ -1,8 +1,7 @@
 use std::convert::Infallible;
-use std::io::{self, Bytes, Read};
 
 use crate::{BitReader, ByteReader, Color, Transitions};
-use crate::maps::{Mode, black, white, mode, EDFB_HALF, EOL};
+use crate::maps::{Mode, black, white, mode, EOL};
 
 
 fn with_markup<D, R>(decoder: D, reader: &mut R) -> Option<u16>
@@ -126,7 +125,7 @@ pub fn decode_g4(input: impl Iterator<Item=u8>, width: u16, height: Option<u16>,
     let reader = input.map(Result::<u8, Infallible>::Ok);
     let mut decoder = Group4Decoder::new(reader, width).ok()?;
 
-    for y in 0 .. height.unwrap_or(u16::MAX) {
+    for _y in 0 .. height.unwrap_or(u16::MAX) {
         let status = decoder.advance().ok()?;
         if status == DecodeStatus::End {
             return Some(());
@@ -223,9 +222,9 @@ impl<E, R: Iterator<Item=Result<u8, E>>> Group4Decoder<R> {
                     a0 = a2;
                 }
                 Mode::Extension => {
-                    let xxx = self.reader.peek(3).ok_or(DecodeError::Invalid)?;
-                    // debug!("extension: {:03b}", xxx);
-                    self.reader.consume(3);
+                    let _xxx = self.reader.peek(3).ok_or(DecodeError::Invalid)?;
+                    // debug!("extension: {:03b}", _xxx);
+                    let _ = self.reader.consume(3);
                     // debug!("{:?}", current);
                     return Err(DecodeError::Unsupported);
                 }
